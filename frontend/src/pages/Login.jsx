@@ -32,18 +32,19 @@ const Login = () => {
       setLoading(true);
 
       const res = await API.post("/login", form);
+      console.log("login data is .........", res);
+      console.log("login data is .........", res.data);
 
-     localStorage.setItem("token", res.data.token);
-localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login Successful");
 
-     if (res.data.user.role === "host") {
-  navigate("/host-dashboard");
-} else {
-  navigate("/guest-dashboard");
-}
-
+      if (res.data.user.role === "host") {
+        navigate("/host-dashboard");
+      } else {
+        navigate("/guest-dashboard");
+      }
     } catch (error) {
       alert(error.response?.data?.message || "Login Failed");
     } finally {
@@ -53,30 +54,20 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-500 via-black to-gray-500 flex justify-center items-center px-4">
-
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
-
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-600">
-            Welcome Back
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-600">Welcome Back</h1>
 
-          <p className="text-gray-500 mt-2">
-            Login to continue
-          </p>
+          <p className="text-gray-500 mt-2">Login to continue</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
-
           {/* Email */}
 
           <div>
-            <label className="text-gray-600 font-medium">
-              Email
-            </label>
+            <label className="text-gray-600 font-medium">Email</label>
 
             <div className="mt-2 flex items-center border rounded-xl px-3">
-
               <FaEnvelope className="text-gray-400" />
 
               <input
@@ -87,20 +78,15 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
                 onChange={handleChange}
                 className="w-full p-3 outline-none"
               />
-
             </div>
           </div>
 
           {/* Password */}
 
           <div>
-
-            <label className="text-gray-600 font-medium">
-              Password
-            </label>
+            <label className="text-gray-600 font-medium">Password</label>
 
             <div className="mt-2 flex items-center border rounded-xl px-3">
-
               <FaLock className="text-gray-400" />
 
               <input
@@ -122,9 +108,7 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
                   <FaEye className="text-gray-500" />
                 )}
               </button>
-
             </div>
-
           </div>
 
           <button
@@ -138,24 +122,18 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
 
         <div className="mt-6 text-center text-gray-900">
-
           Don't have an account?
-
           <Link
             to="/signup"
             className="ml-2 text-green-600 font-semibold hover:underline"
           >
             Signup
           </Link>
-
         </div>
-
       </div>
-
     </div>
   );
 };
